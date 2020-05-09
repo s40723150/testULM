@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.login %}
+        {% if page*item_per_page > total_number %}
+        {% set to_number = total_number %}
+        {% else %}
+        {% set to_number = page*item_per_page %}
+        {% endif %}
+        目前共有 {{ total_number }} 筆資料. 顯示第 {{ page }} 頁, 從 {{ (page-1)*item_per_page+1 }} 筆到第 {{ to_number }} 筆, <a href="{{ url_for('show_entries') }}">分頁列印</a>, <a href="{{ url_for('show_entries') }}/1/{{ total_number+1 }}">列出全部</a><br />
+         {# 列出頁面選單 #}
+         {# 列出上一頁 #}
+         {% if page-1 >= 1 %}
+         <a href="{{ url_for('show_entries') }}/{{ page-1 }}/{{ item_per_page }}">上一頁</a> |
+         {% endif %}
+         {% for i in range(totalpage) %}
+         <a href="{{ url_for('show_entries') }}/{{ loop.index }}/{{ item_per_page }}">{{ loop.index }}</a> |
+         {% endfor %}
+        {# 列出下一頁 #}
+        {% if page+1 <= totalpage %}
+         <a href="{{ url_for('show_entries') }}/{{ page+1 }}/{{ item_per_page }}">下一頁</a> |
+         {% endif %}
+         <br /><br />
+          <table border="1" cellpadding="5">
+          <tr>
+          <td width="150">user</td>
+          <td width="150">date</td>
+          <td width="150">result</td>
+          <td width="150">memo</td>
+          </tr>
+          {% for entry in grouping %}
+            <tr>
+            <td>{{ entry.user }}</td>
+            <td>{{ entry.date }}</td>
+            <td>{{ entry.result }}</td>
+            <td><a href="/edit/{{entry.id }}">edit</a>  |  <a href="/delete/{{ entry.id }}">delete</a></td>
+            <td>{{ entry.memo|safe }}</td>
+          {% else %}
+            <li><em>沒有資料!</em>
+          {% endfor %}
+          </table>
+          <br />
+          目前共有 {{ total_number }} 筆資料. 顯示第 {{ page }} 頁, 從 {{ (page-1)*item_per_page+1 }} 筆到第 {{ to_number }} 筆, <a href="{{ url_for('show_entries') }}">分頁列印</a>, <a href="{{ url_for('show_entries') }}/1/{{ total_number+1 }}">列出全部</a><br />
+         {# 列出頁面選單 #}
+         {# 列出上一頁 #}
+         {% if page-1 >= 1 %}
+         <a href="{{ url_for('show_entries') }}/{{ page-1 }}/{{ item_per_page }}">上一頁</a> |
+         {% endif %}
+         {% for i in range(totalpage) %}
+         <a href="{{ url_for('show_entries') }}/{{ loop.index }}/{{ item_per_page }}">{{ loop.index }}</a> |
+         {% endfor %}
+        {# 列出下一頁 #}
+        {% if page+1 <= totalpage %}
+         <a href="{{ url_for('show_entries') }}/{{ page+1 }}/{{ item_per_page }}">下一頁</a> |
+         {% endif %}
+ {% endif %}
+{% endblock %}

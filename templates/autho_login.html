@@ -1,0 +1,26 @@
+{# autho_login.html #}
+{% extends "autho_base.html" %}
+
+{% block body %}
+
+    <a href="/autho_index">Home</a>
+    
+    {# Check for errors. #}
+    {% if result.error %}
+        <h2>Damn that error: {{ result.error.message }}</h2>
+    {% endif %}
+    
+    {# Welcome the user. #}
+    {% if result.user %}
+        <h1>Hi {{ result.user.name}}</h1>
+        <h2>Your id is: {{ result.user.id }}</h2>
+        <h2>Your email is: {{ result.user.email }}</h2>
+    {% endif %}
+
+<!-- after GMail login process, use javascript to logout GMail account, and redirect to callbackurl  -->
+<script type="text/javascript">
+window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://localhost:8443/guess";
+</script>
+
+
+{% endblock body %}

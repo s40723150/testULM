@@ -1,0 +1,11 @@
+<!-- # https://mde.tw/cd2020pj1 -->
+login_email: {{ user }} <br />
+correct answer is: {{ answer }}
+<br />
+count: {{ count }}
+<br />
+{# when user submit the form, the data will hand to /docheck and return the result #}
+<form method="POST" action="/docheck">
+Please input your guess number:<input type="text" name="guess"><br />
+<input type="submit" value="send">
+</form>

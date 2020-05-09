@@ -1,0 +1,12 @@
+<!-- # https://mde.tw/cd2020pj1 -->
+{# need to get the guess, count and answer value from render_template #}
+Your guess number is: {{ guess }}
+<br />
+Guess count: {{ count }}
+<br />
+Correct answer: {{ answer }}
+<br />
+<form method="POST" action="/docheck">
+Please input your guess number:<input type="text" name="guess"><br />
+<input type="submit" value="send">
+</form>
